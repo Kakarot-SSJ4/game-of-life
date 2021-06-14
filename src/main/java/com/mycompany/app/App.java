@@ -10,13 +10,14 @@ package com.mycompany.app;
  */
 public class App 
 {
+    final static int limit = Integer.MAX_VALUE;
     public static void main( String[] args )
     {
         initialize();
     }
 
     public static void initialize() {
-        int[][] grid = new int[Integer.MAX_VALUE][Integer.MAX_VALUE];
+        int[][] grid = new int[limit][limit];
         initialState(grid);
         iterateAndDisplay(grid);
     }
