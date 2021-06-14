@@ -1,6 +1,9 @@
 package com.mycompany.app;
 import java.awt.*;
 import javax.swing.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
 // import java.util.Scanner;
 
 /**
@@ -65,9 +68,13 @@ public class App extends Frame
 
     public void startGameOfLife() {
         System.out.println("STARTED");
-        while(true) {
-            iterateAndDisplay();
-        }
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                iterateAndDisplay();
+            }
+        }, 0, 3000);
     }
 
     // TODO: edge case
