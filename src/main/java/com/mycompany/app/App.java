@@ -11,7 +11,7 @@ import java.util.TimerTask;
  * display the new state on the infinite grid
  * Rules - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#:~:text=The%20Game%20of%20Life%2C%20also,state%2C%20requiring%20no%20further%20input.
  * Improvements: 
- *  - if initial state is on the edge, shift before iterating
+ *  - if initial state is on the edge, shift before iterating (DONE)
  *  - in population growing in different directions, data will be lost
  *  - cannot know about grids other than the one in display
  */
@@ -91,6 +91,7 @@ public class App extends Frame
      */
     public void startGameOfLife() {
         System.out.println("STARTED");
+        checkInitialOverflow();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -98,6 +99,46 @@ public class App extends Frame
                 iterateAndDisplay();
             }
         }, 0, 1000);
+    }
+
+    /**
+     * check if any alive grid is on the edge
+     * shift by offset if there is
+     */
+    public void checkInitialOverflow() {
+        boolean rowOverflow = false;
+        boolean columnOverflow = false;
+        boolean rowUnderflow = false;
+        boolean columnUnderflow = false;
+        for(int i = 0; i < limit; i++) {
+            for(int j = 0; j < limit; j++) {
+                if(alive(i, j)) {
+                    if(i == limit - 1) {
+                        rowOverflow = true;
+                    }
+                    if(j == limit - 1) {
+                        columnOverflow = true;
+                    }
+                    if(i == 0) {
+                        rowUnderflow = true;
+                    }
+                    if(j == 0) {
+                        columnUnderflow = true;
+                    }
+                }
+            }
+        }
+        if(rowOverflow) {
+            shiftRowByOffset(grid, offsetMagnitude);
+        } else if (rowUnderflow) {
+            shiftRowByOffset(grid, -1 * offsetMagnitude);
+        }
+
+        if(columnOverflow) {
+            shiftColByOffset(grid, offsetMagnitude);
+        } else if(columnUnderflow) {
+            shiftColByOffset(grid, -1 * offsetMagnitude);
+        }
     }
 
     /**
