@@ -21,10 +21,10 @@ public class App extends Frame
         grid = new int[limit][limit];
         initializeButtons(display);
         JButton start = startButton();  
-        add(start);//adding button into frame  
-        setSize(1400,900);//frame size 300 width and 300 height  
-        setLayout(new GridLayout(limit + 1, limit + 1));//no layout manager  
-        setVisible(true);//now frame will be visible, by default not visible  
+        add(start); 
+        setSize(1400,900);
+        setLayout(new GridLayout(limit + 1, limit + 1)); 
+        setVisible(true); 
     }
 
     public void initializeButtons(JButton[][] buttons) {
@@ -33,6 +33,7 @@ public class App extends Frame
                 int tempI = i;
                 int tempJ = j;
                 buttons[i][j] = new JButton(" ");
+                buttons[i][j].setBackground(Color.BLUE);
                 buttons[i][j].addActionListener( e -> {
                     buttons[tempI][tempJ].setBackground( Color.GREEN);
                     grid[tempI][tempJ] = 1;
@@ -47,13 +48,7 @@ public class App extends Frame
     public JButton startButton() {
         JButton start = new JButton("->");
         start.addActionListener( e -> {
-            for(int i = 0; i < limit; i++) {
-                for(int j = 0; j < limit; j++) {
-                    if(grid[i][j] == 1) {
-                        System.out.println("green at " + i + "," + j);
-                    }
-                }
-            }
+            iterateAndDisplay();
         }
         );
         return start;
@@ -66,15 +61,59 @@ public class App extends Frame
 
     public static void initialize() {
         App obj = new App();
-        initialState();
-        iterateAndDisplay();
     }
 
-    public static void initialState() {
+    // TODO: edge case
+    public void iterateAndDisplay() {
+        for(int i = 0; i < limit; i++) {
+            for(int j = 0; j < limit; j++) {
+                if(toLive(i, j)) {
+                    grid[i][j] = 1;
+                } else {
+                    grid[i][j] = 0;
+                }
+            }
+        }
+        changeColors();
+    }
+
+    public boolean toLive(int row, int col) {
+        int neighbourLifeCount = 0;
+        if(alive(row - 1, col)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row - 1, col - 1)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row - 1, col + 1)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row, col - 1)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row, col + 1)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row + 1, col - 1)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row + 1, col)) {
+            neighbourLifeCount++;
+        }
+        if(alive(row + 1, col + 1)) {
+            neighbourLifeCount++;
+        }
+        if((neighbourLifeCount == 2 || neighbourLifeCount == 3) && grid[row][col] == 1) {
+            return true;
+        } else if(neighbourLifeCount == 3) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
-    public static void iterateAndDisplay() {
+    public void changeColors() {
 
     }
 }
