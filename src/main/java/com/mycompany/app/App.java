@@ -6,16 +6,21 @@ import java.util.TimerTask;
 
 /**
  * Cowan's Game of Life
- * Take input on an infinite grid
+ * Take input of the initial state on an infinite grid
  * In every cycle, make changes according to the rules of the game of life
  * display the new state on the infinite grid
  * Rules - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#:~:text=The%20Game%20of%20Life%2C%20also,state%2C%20requiring%20no%20further%20input.
+ * Improvements: 
+ *  - if initial state is on the edge, shift before iterating
+ *  - in population growing in different directions, data will be lost
+ *  - cannot know about grids other than the one in display
  */
 public class App extends Frame
 {
     JButton[][] display;
-    final static int limit = 30;
+    final static int limit = 20;
     int[][] grid;
+    int offsetMagnitude = 7;
 
     final Color aliveColor = Color.GREEN;
     final Color deadColor = Color.GRAY;
@@ -129,15 +134,15 @@ public class App extends Frame
         }
 
         if(rowOverflow) {
-            shiftRowByOffset(tempGrid, 10);
+            shiftRowByOffset(tempGrid, offsetMagnitude);
         } else if (rowUnderflow) {
-            shiftRowByOffset(tempGrid, -10);
+            shiftRowByOffset(tempGrid, -1 * offsetMagnitude);
         }
 
         if(columnOverflow) {
-            shiftColByOffset(tempGrid, 10);
+            shiftColByOffset(tempGrid, offsetMagnitude);
         } else if(columnUnderflow) {
-            shiftColByOffset(tempGrid, -10);
+            shiftColByOffset(tempGrid, -1 * offsetMagnitude);
         }
 
         for(int i = 0; i < limit; i++) {
