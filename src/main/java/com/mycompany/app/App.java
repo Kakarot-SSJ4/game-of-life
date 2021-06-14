@@ -1,6 +1,6 @@
 package com.mycompany.app;
 import java.awt.*;
-import java.swing.*;
+import javax.swing.*;
 // import java.util.Scanner;
 
 /**
@@ -12,24 +12,31 @@ import java.swing.*;
  */
 public class App extends Frame
 {
-    Button[][] display;
-    final static int limit = 100;
+    JButton[][] display;
+    final static int limit = 30;
 
     App() {
-        display = new Button[limit][limit];
+        display = new JButton[limit][limit];
         initializeButtons(display);
-        // Button b=new Button("click me");  
-        // b.setBounds(30,100,80,30);// setting button position  
-        // add(b);//adding button into frame  
-        setSize(300,300);//frame size 300 width and 300 height  
-        setLayout(null);//no layout manager  
+        JButton b = new JButton("start");  
+        //b.setBounds(30,100,80,30);// setting button position  
+        add(b);//adding button into frame  
+        setSize(1400,900);//frame size 300 width and 300 height  
+        setLayout(new GridLayout(limit, limit));//no layout manager  
         setVisible(true);//now frame will be visible, by default not visible  
     }
 
-    public void initializeButtons(Button[][] buttons) {
+    public void initializeButtons(JButton[][] buttons) {
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
-                buttons[i][j] = new Button(" ");
+                int tempI = i;
+                int tempJ = j;
+                buttons[i][j] = new JButton(" ");
+                buttons[i][j].addActionListener( e -> {
+                    buttons[tempI][tempJ].setBackground( Color.GREEN);
+                }
+                );
+                add(buttons[i][j]);
             }
         }
     }
