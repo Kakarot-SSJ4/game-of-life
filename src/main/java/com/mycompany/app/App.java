@@ -19,6 +19,9 @@ public class App extends Frame
     final static int limit = 30;
     int[][] grid;
 
+    final Color aliveColor = Color.GREEN;
+    final Color deadColor = Color.GRAY;
+
     App() {
         display = new JButton[limit][limit];
         grid = new int[limit][limit];
@@ -36,9 +39,9 @@ public class App extends Frame
                 int tempI = i;
                 int tempJ = j;
                 buttons[i][j] = new JButton(" ");
-                buttons[i][j].setBackground(Color.BLUE);
+                buttons[i][j].setBackground(deadColor);
                 buttons[i][j].addActionListener( e -> {
-                    buttons[tempI][tempJ].setBackground( Color.GREEN);
+                    buttons[tempI][tempJ].setBackground( aliveColor);
                     grid[tempI][tempJ] = 1;
                     System.out.println("Clicked " + tempI + "," + tempJ);
                 }
@@ -204,7 +207,7 @@ public class App extends Frame
         // if(row == 3 && col == 1) {
         //  System.out.println("!!!!!!!!!!!!!!!!" + neighbourLifeCount);
         // }
-        if((neighbourLifeCount == 2 || neighbourLifeCount == 3) && grid[row][col] == 1) {
+        if(neighbourLifeCount == 2 && grid[row][col] == 1) {
             return true;
         } else if(neighbourLifeCount == 3) {
             return true;
@@ -226,9 +229,9 @@ public class App extends Frame
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
                 if(grid[i][j] == 1) {
-                    display[i][j].setBackground(Color.GREEN);
+                    display[i][j].setBackground(aliveColor);
                 } else {
-                    display[i][j].setBackground(Color.BLUE);
+                    display[i][j].setBackground(deadColor);
                 }
             }
         }
