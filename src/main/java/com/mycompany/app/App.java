@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// import java.util.Scanner;
-
 /**
  * Cowan's Game of Life
  * Take input on an infinite grid
@@ -22,6 +20,10 @@ public class App extends Frame
     final Color aliveColor = Color.GREEN;
     final Color deadColor = Color.GRAY;
 
+    /**
+     * Default constructor for the class
+     * creates the components of the frame
+     */
     App() {
         display = new JButton[limit][limit];
         grid = new int[limit][limit];
@@ -33,6 +35,11 @@ public class App extends Frame
         setVisible(true); 
     }
 
+    /**
+     * initialize the gridview of buttons
+     * assign an action on click of the button
+     * @param buttons
+     */
     public void initializeButtons(JButton[][] buttons) {
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
@@ -51,6 +58,10 @@ public class App extends Frame
         }
     }
 
+    /**
+     * button which starts the game of life
+     * @return JButton
+     */
     public JButton startButton() {
         JButton start = new JButton("->");
         start.addActionListener( e -> {
@@ -69,6 +80,10 @@ public class App extends Frame
         App obj = new App();
     }
 
+    /**
+     * apply the rules of game of life at an interval of 1 second
+     * call function iterateAndDisplay to handle the rules
+     */
     public void startGameOfLife() {
         System.out.println("STARTED");
         Timer timer = new Timer();
@@ -80,7 +95,10 @@ public class App extends Frame
         }, 0, 1000);
     }
 
-    // TODO: edge case
+    /**
+     * iterates through the grid and applies the rules
+     * change the color according to the new grids formed
+     */
     public void iterateAndDisplay() {
         boolean rowOverflow = false;
         boolean columnOverflow = false;
@@ -131,6 +149,12 @@ public class App extends Frame
         changeColors();
     }
 
+    /**
+     * shift arr vertically by offset units
+     * arr[i][j] = arr[i + offset][j];
+     * @param arr
+     * @param offset
+     */
     public void shiftRowByOffset(int[][] arr, int offset) {
         System.out.println("OVERFLOW ROW");
         int[][] tempArr = new int[limit][limit];
@@ -155,6 +179,12 @@ public class App extends Frame
         }
     }
 
+    /**
+     * shift arr horizontally by offset units
+     * arr[i][j] = arr[i][j + offset];
+     * @param arr
+     * @param offset
+     */
     public void shiftColByOffset(int[][] arr, int offset) {
         System.out.println("OVERFLOW COL");
         int[][] tempArr = new int[limit][limit];
@@ -178,6 +208,12 @@ public class App extends Frame
         }
     }
 
+    /**
+     * determine if grid[row][col] should be alive in the next iteration
+     * @param row
+     * @param col
+     * @return
+     */
     public boolean toLive(int row, int col) {
         int neighbourLifeCount = 0;
         if(alive(row - 1, col)) {
@@ -217,6 +253,12 @@ public class App extends Frame
 
     }
 
+    /**
+     * determine if grid[row][col] is alive in the current iteration
+     * @param row
+     * @param col
+     * @return
+     */
     public boolean alive(int row, int col) {
         try {
             return grid[row][col] == 1;
@@ -225,6 +267,9 @@ public class App extends Frame
         }
     }
 
+    /**
+     * change the color of the grid of buttons according to the current state
+     */
     public void changeColors() {
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
