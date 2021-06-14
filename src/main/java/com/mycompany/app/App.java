@@ -48,7 +48,7 @@ public class App extends Frame
     public JButton startButton() {
         JButton start = new JButton("->");
         start.addActionListener( e -> {
-            iterateAndDisplay();
+            startGameOfLife();
         }
         );
         return start;
@@ -63,11 +63,19 @@ public class App extends Frame
         App obj = new App();
     }
 
+    public void startGameOfLife() {
+        System.out.println("STARTED");
+        while(true) {
+            iterateAndDisplay();
+        }
+    }
+
     // TODO: edge case
     public void iterateAndDisplay() {
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
                 if(toLive(i, j)) {
+                    System.out.println("WILL LIVE " + i + "," + j);
                     grid[i][j] = 1;
                 } else {
                     grid[i][j] = 0;
@@ -113,7 +121,23 @@ public class App extends Frame
 
     }
 
-    public void changeColors() {
+    public boolean alive(int row, int col) {
+        try {
+            return grid[row][col] == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    public void changeColors() {
+        for(int i = 0; i < limit; i++) {
+            for(int j = 0; j < limit; j++) {
+                if(grid[i][j] == 1) {
+                    display[i][j].setBackground(Color.GREEN);
+                } else {
+                    display[i][j].setBackground(Color.BLUE);
+                }
+            }
+        }
     }
 }
