@@ -10,10 +10,12 @@ import java.util.TimerTask;
  * In every cycle, make changes according to the rules of the game of life
  * display the new state on the infinite grid
  * Rules - https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#:~:text=The%20Game%20of%20Life%2C%20also,state%2C%20requiring%20no%20further%20input.
- * Improvements: 
+ * Problems/Improvements: 
  *  - if initial state is on the edge, shift before iterating (DONE)
  *  - in population growing in different directions, data will be lost
  *  - cannot know about grids other than the one in display
+ *  - remove wildcard imports
+ *  - make unit tests
  */
 public class App extends Frame
 {
@@ -68,7 +70,7 @@ public class App extends Frame
      * @return JButton
      */
     public JButton startButton() {
-        JButton start = new JButton("->");
+        JButton start = new JButton("Start");
         start.addActionListener( e -> {
             startGameOfLife();
         }
