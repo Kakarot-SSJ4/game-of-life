@@ -81,8 +81,8 @@ public class App extends Frame
     public void iterateAndDisplay() {
         boolean rowOverflow = false;
         boolean columnOverflow = false;
-        boolean rowUnderFlow = false;
-        boolean columnUnderFlow = false;
+        boolean rowUnderflow = false;
+        boolean columnUnderflow = false;
         int[][] tempGrid = new int[limit][limit];
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
@@ -94,12 +94,12 @@ public class App extends Frame
                         columnOverflow = true;
                     }
                     if(i == 0) {
-                        rowUnderFlow = true;
+                        rowUnderflow = true;
                     }
                     if(j == 0) {
-                        columnUnderFlow = true;
+                        columnUnderflow = true;
                     }
-                    System.out.println("WILL LIVE " + i + "," + j);
+                    //System.out.println("WILL LIVE " + i + "," + j);
                     tempGrid[i][j] = 1;
                 } else {
                     tempGrid[i][j] = 0;
@@ -107,16 +107,16 @@ public class App extends Frame
             }
         }
 
-        if(rowOverFlow) {
-            shiftRowUp(tempGrid);
-        } else if (rowUnderFlow) {
-            shiftRowDown(tempGrid);
+        if(rowOverflow) {
+            shiftRowByOffset(tempGrid, 10);
+        } else if (rowUnderflow) {
+            shiftRowByOffset(tempGrid, -10);
         }
 
-        if(columnOverFlow) {
-            shiftColLeft(tempGrid);
-        } else if(columnUnderFlow) {
-            shiftColRight(tempGrid);
+        if(columnOverflow) {
+            shiftColByOffset(tempGrid, 10);
+        } else if(columnUnderflow) {
+            shiftColByOffset(tempGrid, -10);
         }
 
         for(int i = 0; i < limit; i++) {
@@ -126,6 +126,53 @@ public class App extends Frame
         }
     
         changeColors();
+    }
+
+    public void shiftRowByOffset(int[][] arr, int offset) {
+        System.out.println("OVERFLOW ROW");
+        int[][] tempArr = new int[limit][limit];
+        for(int i = 0; i < limit; i++){
+            for (int j = 0; j < limit; j++) {
+                try {
+                    tempArr[i][j] = arr[i + offset][j];
+                } catch (Exception e) {
+                    tempArr[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 0; i < limit; i++){
+            for (int j = 0; j < limit; j++) {
+                if(tempArr[i][j] == 1) {
+        System.out.println("GREEN AT" + i + "," + j);
+
+                }
+                arr[i][j] = tempArr[i][j];
+            }
+        }
+    }
+
+    public void shiftColByOffset(int[][] arr, int offset) {
+        System.out.println("OVERFLOW COL");
+        int[][] tempArr = new int[limit][limit];
+        for(int i = 0; i < limit; i++){
+            for (int j = 0; j < limit; j++) {
+                try {
+                    tempArr[i][j] = arr[i][j + offset];
+                } catch (Exception e) {
+                    tempArr[i][j] = 0;
+                }
+            }
+        }
+
+        for(int i = 0; i < limit; i++){
+            for (int j = 0; j < limit; j++) {
+                if(tempArr[i][j] == 1) {
+                    System.out.println("GREEN AT" + i + "," + j);
+                }
+                arr[i][j] = tempArr[i][j];
+            }
+        }
     }
 
     public boolean toLive(int row, int col) {
@@ -154,9 +201,9 @@ public class App extends Frame
         if(alive(row + 1, col + 1)) {
             neighbourLifeCount++;
         }
-        if(row == 3 && col == 1) {
-         System.out.println("!!!!!!!!!!!!!!!!" + neighbourLifeCount);
-        }
+        // if(row == 3 && col == 1) {
+        //  System.out.println("!!!!!!!!!!!!!!!!" + neighbourLifeCount);
+        // }
         if((neighbourLifeCount == 2 || neighbourLifeCount == 3) && grid[row][col] == 1) {
             return true;
         } else if(neighbourLifeCount == 3) {
