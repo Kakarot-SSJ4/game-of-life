@@ -14,15 +14,16 @@ public class App extends Frame
 {
     JButton[][] display;
     final static int limit = 30;
+    int[][] grid;
 
     App() {
         display = new JButton[limit][limit];
+        grid = new int[limit][limit];
         initializeButtons(display);
-        JButton b = new JButton("start");  
-        //b.setBounds(30,100,80,30);// setting button position  
-        add(b);//adding button into frame  
+        JButton start = startButton();  
+        add(start);//adding button into frame  
         setSize(1400,900);//frame size 300 width and 300 height  
-        setLayout(new GridLayout(limit, limit));//no layout manager  
+        setLayout(new GridLayout(limit + 1, limit + 1));//no layout manager  
         setVisible(true);//now frame will be visible, by default not visible  
     }
 
@@ -34,11 +35,28 @@ public class App extends Frame
                 buttons[i][j] = new JButton(" ");
                 buttons[i][j].addActionListener( e -> {
                     buttons[tempI][tempJ].setBackground( Color.GREEN);
+                    grid[tempI][tempJ] = 1;
+                    System.out.println("Clicked " + tempI + "," + tempJ);
                 }
                 );
                 add(buttons[i][j]);
             }
         }
+    }
+
+    public JButton startButton() {
+        JButton start = new JButton("->");
+        start.addActionListener( e -> {
+            for(int i = 0; i < limit; i++) {
+                for(int j = 0; j < limit; j++) {
+                    if(grid[i][j] == 1) {
+                        System.out.println("green at " + i + "," + j);
+                    }
+                }
+            }
+        }
+        );
+        return start;
     }
 
     public static void main( String[] args )
@@ -48,16 +66,15 @@ public class App extends Frame
 
     public static void initialize() {
         App obj = new App();
-        int[][] grid = new int[limit][limit];
-        initialState(grid);
-        iterateAndDisplay(grid);
+        initialState();
+        iterateAndDisplay();
     }
 
-    public static void initialState(int[][] grid) {
+    public static void initialState() {
 
     }
 
-    public static void iterateAndDisplay(int[][] grid) {
+    public static void iterateAndDisplay() {
 
     }
 }
