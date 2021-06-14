@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.mycompany.app.AppTest" time="0.024" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.mycompany.app.AppTest" time="0.018" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="13"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/home/kakarot/jdk-13.0.1/lib"/>
-    <property name="sun.java.command" value="/home/kakarot/game-of-life/target/surefire/surefirebooter11542661589909974652.jar /home/kakarot/game-of-life/target/surefire 2021-06-14T14-22-26_852-jvmRun1 surefire18320885513468571910tmp surefire_014215810645424227936tmp"/>
+    <property name="sun.java.command" value="/home/kakarot/game-of-life/target/surefire/surefirebooter6195867467845989239.jar /home/kakarot/game-of-life/target/surefire 2021-06-14T14-33-47_674-jvmRun1 surefire1732522687825765450tmp surefire_015250335072902438017tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/kakarot/game-of-life/target/test-classes:/home/kakarot/game-of-life/target/classes:/home/kakarot/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/kakarot/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/kakarot/game-of-life/target/surefire/surefirebooter11542661589909974652.jar"/>
+    <property name="surefire.real.class.path" value="/home/kakarot/game-of-life/target/surefire/surefirebooter6195867467845989239.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="13.0.1+9"/>
     <property name="user.name" value="kakarot"/>

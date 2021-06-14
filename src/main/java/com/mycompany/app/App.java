@@ -74,21 +74,57 @@ public class App extends Frame
             public void run() {
                 iterateAndDisplay();
             }
-        }, 0, 3000);
+        }, 0, 1000);
     }
 
     // TODO: edge case
     public void iterateAndDisplay() {
+        boolean rowOverflow = false;
+        boolean columnOverflow = false;
+        boolean rowUnderFlow = false;
+        boolean columnUnderFlow = false;
+        int[][] tempGrid = new int[limit][limit];
         for(int i = 0; i < limit; i++) {
             for(int j = 0; j < limit; j++) {
                 if(toLive(i, j)) {
+                    if(i == limit - 1) {
+                        rowOverflow = true;
+                    }
+                    if(j == limit - 1) {
+                        columnOverflow = true;
+                    }
+                    if(i == 0) {
+                        rowUnderFlow = true;
+                    }
+                    if(j == 0) {
+                        columnUnderFlow = true;
+                    }
                     System.out.println("WILL LIVE " + i + "," + j);
-                    grid[i][j] = 1;
+                    tempGrid[i][j] = 1;
                 } else {
-                    grid[i][j] = 0;
+                    tempGrid[i][j] = 0;
                 }
             }
         }
+
+        if(rowOverFlow) {
+            shiftRowUp(tempGrid);
+        } else if (rowUnderFlow) {
+            shiftRowDown(tempGrid);
+        }
+
+        if(columnOverFlow) {
+            shiftColLeft(tempGrid);
+        } else if(columnUnderFlow) {
+            shiftColRight(tempGrid);
+        }
+
+        for(int i = 0; i < limit; i++) {
+            for(int j = 0; j < limit; j++) {
+                grid[i][j] = tempGrid[i][j];
+            }
+        }
+    
         changeColors();
     }
 
@@ -117,6 +153,9 @@ public class App extends Frame
         }
         if(alive(row + 1, col + 1)) {
             neighbourLifeCount++;
+        }
+        if(row == 3 && col == 1) {
+         System.out.println("!!!!!!!!!!!!!!!!" + neighbourLifeCount);
         }
         if((neighbourLifeCount == 2 || neighbourLifeCount == 3) && grid[row][col] == 1) {
             return true;
